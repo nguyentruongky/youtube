@@ -2,11 +2,11 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "swift-banner.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
+      "filename" : "Home-513.png",
       "scale" : "2x"
     },
     {

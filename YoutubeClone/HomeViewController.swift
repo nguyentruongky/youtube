@@ -23,6 +23,27 @@ class HomeViewController: UICollectionViewController, UICollectionViewDelegateFl
         collectionView?.backgroundColor = UIColor.white
         
         collectionView?.register(VideoCell.self, forCellWithReuseIdentifier: "cellId")
+
+        collectionView?.contentInset = UIEdgeInsets(top: 50, left: 0, bottom: 0, right: 0)
+        collectionView?.scrollIndicatorInsets = UIEdgeInsets(top: 50, left: 0, bottom: 0, right: 0)
+        edgesForExtendedLayout = .bottom
+        
+        setupMenuBar()
+    }
+    let menuBar : MenuBar = {
+        let mb = MenuBar()
+        return mb
+    }()
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+    }
+    
+    private func setupMenuBar() {
+        view.addSubview(menuBar)
+        view.addConstraints(withFormat: "H:|[v0]|", views: menuBar)
+        view.addConstraints(withFormat: "V:|[v0(50)]", views: menuBar)
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

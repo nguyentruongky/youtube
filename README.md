@@ -11,6 +11,7 @@ This is the sample followed the tutorial at
 ###Timeline
 The project started at 4AM, Oct 13, 2016. 
 
-- The first day: Built the home screen with collection view in 38 minutes. I worked in 1 hour 15 minutes. 
+- The first day ([Ep1](https://youtu.be/3Xv1mJvwXok)): Built the home screen with collection view in 38 minutes.
+- The second day ([Ep2](https://youtu.be/APQVltARKF8) and [Ep3](https://youtu.be/rRhJGnSmEKQ?list=PL0dzCUj1L5JGKdVUtA5xds1zcyzsz7HLj)): Add dummy data and format cell size. Custom the navigation bar and status bar. Create a custom menu bar with UICollectionView. Change to image tint color. Length: 28 minutes for Ep2 and 36 minutes for Ep3. 
 - Update later...
 
