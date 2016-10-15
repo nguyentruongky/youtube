@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2617C25D1DB1CC9F005E4A84 /* Video.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2617C25C1DB1CC9F005E4A84 /* Video.swift */; };
 		265A90771DB038F000CD4CDF /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 265A90761DB038F000CD4CDF /* Extension.swift */; };
 		265A907A1DB0394C00CD4CDF /* VideoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 265A90791DB0394C00CD4CDF /* VideoCell.swift */; };
 		265A907E1DB03EC700CD4CDF /* MenuBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 265A907D1DB03EC700CD4CDF /* MenuBar.swift */; };
@@ -18,6 +19,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2617C25C1DB1CC9F005E4A84 /* Video.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Video.swift; sourceTree = "<group>"; };
 		265A90761DB038F000CD4CDF /* Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
 		265A90791DB0394C00CD4CDF /* VideoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoCell.swift; sourceTree = "<group>"; };
 		265A907D1DB03EC700CD4CDF /* MenuBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuBar.swift; sourceTree = "<group>"; };
@@ -41,6 +43,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2617C25B1DB1CC8B005E4A84 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				2617C25C1DB1CC9F005E4A84 /* Video.swift */,
+			);
+			name = Model;
+			path = ..;
+			sourceTree = "<group>";
+		};
 		265A90781DB038F400CD4CDF /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
@@ -85,6 +96,7 @@
 		2663C0DA1DAEE2A80061B511 /* YoutubeClone */ = {
 			isa = PBXGroup;
 			children = (
+				2617C25B1DB1CC8B005E4A84 /* Model */,
 				265A907B1DB0395200CD4CDF /* VIew */,
 				265A90781DB038F400CD4CDF /* Helpers */,
 				265A907C1DB0399400CD4CDF /* Controller */,
@@ -170,6 +182,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				265A90771DB038F000CD4CDF /* Extension.swift in Sources */,
+				2617C25D1DB1CC9F005E4A84 /* Video.swift in Sources */,
 				265A907A1DB0394C00CD4CDF /* VideoCell.swift in Sources */,
 				2663C0DE1DAEE2A80061B511 /* HomeViewController.swift in Sources */,
 				2663C0DC1DAEE2A80061B511 /* AppDelegate.swift in Sources */,

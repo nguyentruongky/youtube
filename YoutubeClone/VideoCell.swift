@@ -25,6 +25,38 @@ class BaseCell: UICollectionViewCell {
 
 class VideoCell: BaseCell {
     
+    var video : Video? {
+        didSet {
+            titleLabel.text = video?.title
+            thumbnailImageView.image = UIImage(named: video!.thumbnailImageName!)
+            
+            if let profileImageName = video?.channel?.profileImageName {
+                userProfileImageView.image = UIImage(named: profileImageName)
+            }
+            
+            if let channelName = video?.channel?.name, let numberOfViews = video?.numberOfViews, let uploadedDate = video?.uploadedDate {
+                let subtitleText = "\(channelName) - \(numberOfViews) views - \(uploadedDate)"
+                subtitleTextView.text = subtitleText
+            }
+            
+            // measure title text
+            if let title = video?.title {
+                let size = CGSize(width: frame.width - 16 - 44 - 8 - 16, height: 1000)
+                let options = NSStringDrawingOptions.usesFontLeading.union(.usesLineFragmentOrigin)
+                let estimatedRect = NSString(string: title).boundingRect(with: size, options: options, attributes: [NSFontAttributeName: UIFont.systemFont(ofSize: 14)], context: nil)
+                if estimatedRect.size.height > 20 {
+                    titleHeight?.constant = 36
+                    subtitleHeight?.constant = 15
+                }
+                else {
+                    titleHeight?.constant = 20
+                    subtitleHeight?.constant = 30
+                }
+            }
+ 
+        }
+    }
+    
     let thumbnailImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "swift-banner")
@@ -50,7 +82,8 @@ class VideoCell: BaseCell {
     
     let titleLabel: UILabel = {
         let label = UILabel()
-        label.text = "Lets build that app"
+        label.numberOfLines = 2
+        label.font = UIFont.systemFont(ofSize: 14)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -61,8 +94,12 @@ class VideoCell: BaseCell {
         textView.text = "Youtube app from Brain (Lets build that app) - 10 views - 1 years ago"
         textView.textContainerInset = UIEdgeInsets(top: 0, left: -4, bottom: 0, right: 0)
         textView.textColor = UIColor.lightGray
+        textView.isScrollEnabled = false
         return textView
     }()
+    
+    var titleHeight : NSLayoutConstraint?
+    var subtitleHeight : NSLayoutConstraint?
     
     override func setupView() {
         addSubview(thumbnailImageView)
@@ -76,7 +113,7 @@ class VideoCell: BaseCell {
         addConstraints(withFormat: "H:|-16-[v0(44)]", views: userProfileImageView)
         
         // vertical constraint for thumbnail image view and separator view
-        addConstraints(withFormat: "V:|-16-[v0]-8-[v1(44)]-16-[v2(0.5)]|", views: thumbnailImageView, userProfileImageView, separatorView)
+        addConstraints(withFormat: "V:|-16-[v0]-8-[v1(44)]-18-[v2(0.5)]|", views: thumbnailImageView, userProfileImageView, separatorView)
         
         addConstraints(withFormat: "H:|[v0]|", views: separatorView)
         
@@ -90,7 +127,8 @@ class VideoCell: BaseCell {
         addConstraint(NSLayoutConstraint(item: titleLabel, attribute: .right, relatedBy: .equal, toItem: thumbnailImageView, attribute: .right, multiplier: 1, constant: 0))
         
         // title height constraint
-        addConstraint(NSLayoutConstraint(item: titleLabel, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .height, multiplier: 1, constant: 20))
+        titleHeight = NSLayoutConstraint(item: titleLabel, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .height, multiplier: 1, constant: 20)
+        addConstraint(titleHeight!)
         
         // subtitle top constraint
         addConstraint(NSLayoutConstraint(item: subtitleTextView, attribute: .top, relatedBy: .equal, toItem: titleLabel, attribute: .bottom, multiplier: 1, constant: 4))
@@ -102,7 +140,8 @@ class VideoCell: BaseCell {
         addConstraint(NSLayoutConstraint(item: subtitleTextView, attribute: .right, relatedBy: .equal, toItem: titleLabel, attribute: .right, multiplier: 1, constant: 0))
         
         //subtitle height constraint
-        addConstraint(NSLayoutConstraint(item: subtitleTextView, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .height, multiplier: 1, constant: 30))
+        subtitleHeight = NSLayoutConstraint(item: subtitleTextView, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .height, multiplier: 1, constant: 30)
+        addConstraint(subtitleHeight!)
     }
 }
 

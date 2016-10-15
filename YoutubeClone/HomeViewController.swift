@@ -10,6 +10,23 @@ import UIKit
 
 class HomeViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
 
+    var videos : [Video] = {
+        
+        var keenChannel = Channel()
+        keenChannel.name = "This is the best channel"
+        keenChannel.profileImageName = "swift-banner"
+        
+        var blankSpaceVideo = Video()
+        blankSpaceVideo.title = "Ky Nguyen is following Lets build that app from Youtube to make a Youtube application"
+        blankSpaceVideo.thumbnailImageName = "swift-banner"
+        blankSpaceVideo.channel = keenChannel
+        blankSpaceVideo.numberOfViews = 12023123
+        blankSpaceVideo.uploadedDate = NSDate()
+        
+        return [blankSpaceVideo]
+    }()
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -29,6 +46,8 @@ class HomeViewController: UICollectionViewController, UICollectionViewDelegateFl
         edgesForExtendedLayout = .bottom
         
         setupMenuBar()
+        
+        setupNavigationIcons()
     }
     let menuBar : MenuBar = {
         let mb = MenuBar()
@@ -46,12 +65,29 @@ class HomeViewController: UICollectionViewController, UICollectionViewDelegateFl
         view.addConstraints(withFormat: "V:|[v0(50)]", views: menuBar)
     }
     
+    func setupNavigationIcons() {
+        let search = UIBarButtonItem(image: UIImage(named: "search")?.withRenderingMode(.alwaysOriginal), style: .done, target: self, action: #selector(handleSearch))
+        let menu = UIBarButtonItem(image: UIImage(named: "menu")?.withRenderingMode(.alwaysOriginal), style: .done, target: self, action: #selector(handleMenu))
+        search.tintColor = UIColor.white
+        menu.tintColor = UIColor.white
+        navigationItem.rightBarButtonItems = [menu, search]
+    }
+    
+    func handleSearch() {
+        
+    }
+    
+    func handleMenu() {
+        
+    }
+    
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 5
+        return videos.count
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cellId", for: indexPath)
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cellId", for: indexPath) as! VideoCell
+        cell.video = videos[indexPath.row]
         return cell
     }
 
