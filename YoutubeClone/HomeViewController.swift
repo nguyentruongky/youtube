@@ -10,21 +10,7 @@ import UIKit
 
 class HomeViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
 
-    var videos : [Video] = {
-        
-        var keenChannel = Channel()
-        keenChannel.name = "This is the best channel"
-        keenChannel.profileImageName = "swift-banner"
-        
-        var blankSpaceVideo = Video()
-        blankSpaceVideo.title = "Ky Nguyen is following Lets build that app from Youtube to make a Youtube application"
-        blankSpaceVideo.thumbnailImageName = "swift-banner"
-        blankSpaceVideo.channel = keenChannel
-        blankSpaceVideo.numberOfViews = 12023123
-        blankSpaceVideo.uploadedDate = NSDate()
-        
-        return [blankSpaceVideo]
-    }()
+    var videos : [Video]?
     
     
     override func viewDidLoad() {
@@ -48,7 +34,43 @@ class HomeViewController: UICollectionViewController, UICollectionViewDelegateFl
         setupMenuBar()
         
         setupNavigationIcons()
+        
+        fetchVideos()
     }
+    
+    func fetchVideos() {
+        URLSession.shared.dataTask(with: URL(string: "https://s3-us-west-2.amazonaws.com/youtubeassets/home.json")!) { (data, response, error) in
+            
+            if error != nil {
+                print(error)
+                return
+            }
+            
+            do {
+                
+                let json = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers)
+                
+                self.videos = [Video]()
+                for dict in json as! [[String: AnyObject]] {
+                    let video = Video()
+                    video.title = dict["title"] as? String
+                    video.thumbnailImageName = dict["thumbnail_image_name"] as? String
+                    video.numberOfViews = dict["number_of_views"] as? NSNumber
+                    video.channel = Channel()
+                    video.channel?.name = dict["channel"]?["name"] as? String
+                    video.channel?.profileImageName = dict["channel"]?["profile_image_name"] as? String
+                    
+                    self.videos?.append(video)
+                }
+                
+                self.collectionView?.reloadData()
+            } catch let jsonerror {
+                print(jsonerror)
+            }
+            
+        }.resume()
+    }
+    
     let menuBar : MenuBar = {
         let mb = MenuBar()
         return mb
@@ -82,12 +104,12 @@ class HomeViewController: UICollectionViewController, UICollectionViewDelegateFl
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return videos.count
+        return videos?.count ?? 0
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cellId", for: indexPath) as! VideoCell
-        cell.video = videos[indexPath.row]
+        cell.video = videos?[indexPath.row]
         return cell
     }
 
