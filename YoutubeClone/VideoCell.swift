@@ -68,9 +68,8 @@ class VideoCell: BaseCell {
         }
     }
     
-    let thumbnailImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.image = UIImage(named: "swift-banner")
+    let thumbnailImageView: CustomImageView = {
+        let imageView = CustomImageView()
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
         return imageView
@@ -82,12 +81,11 @@ class VideoCell: BaseCell {
         return view
     }()
     
-    let userProfileImageView: UIImageView = {
-        let imageView = UIImageView()
+    let userProfileImageView: CustomImageView = {
+        let imageView = CustomImageView()
         imageView.contentMode = .scaleAspectFill
         imageView.layer.masksToBounds = true
         imageView.layer.cornerRadius = 22
-        imageView.image = UIImage(named: "swift-banner")
         return imageView
     }()
     
