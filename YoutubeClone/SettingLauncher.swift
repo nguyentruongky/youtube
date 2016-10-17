@@ -9,13 +9,23 @@
 import UIKit
 
 class Setting: NSObject {
-    let name: String
+    let name: SettingName
     let imageName: String
     
-    init(name: String, imageName: String) {
+    init(name: SettingName, imageName: String) {
         self.name = name
         self.imageName = imageName
     }
+}
+
+enum SettingName : String {
+    
+    case Cancel = "Cancel"
+    case Settings = "Settings"
+    case Term = "Term & Privacy"
+    case Feedback = "Send Feedback"
+    case Help = "Help"
+    case SwitchAccount = "Switch Account"
 }
 
 class SettingLauncher : NSObject {
@@ -34,12 +44,12 @@ class SettingLauncher : NSObject {
     let dismissAnimationDuration : Double = 0.5
     
     let settings = [
-        Setting(name: "Settings", imageName: "setting"),
-        Setting(name: "Term & privacy", imageName: "privacy"),
-        Setting(name: "Send Feedback", imageName: "feedback"),
-        Setting(name: "Help", imageName: "help"),
-        Setting(name: "Switch Account", imageName: "account"),
-        Setting(name: "Cancel", imageName: "cancel"),
+        Setting(name: .Settings, imageName: "setting"),
+        Setting(name: .Term, imageName: "privacy"),
+        Setting(name: .Feedback, imageName: "feedback"),
+        Setting(name: .Help, imageName: "help"),
+        Setting(name: .SwitchAccount, imageName: "account"),
+        Setting(name: .Cancel, imageName: "cancel"),
     ]
     
     func showSetting() {
@@ -117,7 +127,7 @@ extension SettingLauncher: UICollectionViewDelegate, UICollectionViewDataSource,
     }
     
     func handleSettingSelected(setting: Setting) {
-        guard setting.name != "Cancel" else { return }
+        guard setting.name != .Cancel else { return }
         delegate?.didSelectSettingMenu(setting: setting)
     }
 }

@@ -147,5 +147,8 @@ A small difference in my code: I handle selected action right with delay action.
 	    delegate?.didSelectSettingMenu(setting: setting)
 	}
 
+[Ep10](https://www.youtube.com/watch?v=naMqoh1_5To&list=PL0dzCUj1L5JGKdVUtA5xds1zcyzsz7HLj&index=10): Create setting enumeration to easier handle setting selection. 
+
+
 - Update later...
 

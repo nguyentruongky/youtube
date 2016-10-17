@@ -140,7 +140,7 @@ class HomeViewController: UICollectionViewController, UICollectionViewDelegateFl
 extension HomeViewController : SettingDelegate {
     func didSelectSettingMenu(setting: Setting) {
         let newViewController = UIViewController()
-        newViewController.title = setting.name
+        newViewController.title = setting.name.rawValue
         newViewController.view.backgroundColor = UIColor.white
         navigationController?.navigationBar.tintColor = UIColor.white
         navigationController?.navigationBar.titleTextAttributes = [
