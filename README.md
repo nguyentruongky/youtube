@@ -19,7 +19,6 @@ The project started at 4AM, Oct 13, 2016.
 		window = UIWindow(frame: UIScreen.main.bounds)
 		window?.makeKeyAndVisible()
 		window?.rootViewController = UINavigationController(rootViewController: HomeViewController(collectionViewLayout: UICollectionViewFlowLayout()))
-
 -
 		// Extend the UIView to easier add constraint 
 		func addConstraints(withFormat format: String, views: UIView...) {
@@ -62,10 +61,10 @@ The project started at 4AM, Oct 13, 2016.
 			// do other things
 		}
                 
-- The 4th day ([Ep5](https://youtu.be/WjrvcGAZfoI), [Ep6](https://www.youtube.com/watch?v=XFvs6eraBXM)): Working with the JSON. Call the service, get the result and parse JSON to the model. Extend the UIImageView to download image with GCD. Ep6 shows a solution to solve loading wrong image in UITableView/UICollectionView scrolling. Use cache and check the url before use the cache is a good idea. 
+- The 4th day ([Ep5](https://youtu.be/WjrvcGAZfoI)): Working with the JSON. Call the service, get the result and parse JSON to the model. Extend the UIImageView to download image with GCD. 
 
 		// load image in async in extension UIImageView 
-		        URLSession.shared.dataTask(with: URLRequest(url: URL(string: urlString)!), completionHandler: { (data, response, error) in
+        URLSession.shared.dataTask(with: URLRequest(url: URL(string: urlString)!), completionHandler: { (data, response, error) in
 		            
 		    if error != nil {
 		        print(error)
@@ -85,7 +84,8 @@ The project started at 4AM, Oct 13, 2016.
 		    }
 		}).resume()
 		
--
+[Ep6](https://www.youtube.com/watch?v=XFvs6eraBXM): Shows a solution to solve loading wrong image in UITableView/UICollectionView scrolling. Use cache and check the url before use the cache is a good idea. 
+
 		// Cache image 
 		let imageCache = NSCache<AnyObject, AnyObject>()
 		
@@ -107,6 +107,25 @@ The project started at 4AM, Oct 13, 2016.
 		    
 		imageCache.setObject(imageToCache!, forKey: urlString as AnyObject)
 		self.image = imageToCache
-		
+
+
+[Ep7](https://youtu.be/2kwCfFG5fDA): show how to create a custom menu with the collection by adding directly to UIWindow. An easy animation with UIView. Separate the code setting launcher with home view controller.
+
+		// get the current window 
+		if let window = UIApplication.shared.keyWindow {
+			// do something 
+			window.addSubview(your_view)
+		}
+[Ep8](https://youtu.be/PNmuTTd5zWc): create collection view to create menu. Create menu item with image view and label. Override the hightlighted property to show the tap effect. 
+
+		// hightlight effect when tap on the menu 
+		override var isHighlighted: Bool {
+		    didSet {
+		        backgroundColor = isHighlighted  ? UIColor.darkGray : UIColor.white
+		        nameLabel.textColor = isHighlighted  ? UIColor.white : UIColor.black
+		        iconImageView.tintColor = isHighlighted  ? UIColor.white : UIColor.darkGray
+		    }
+		}
+
 - Update later...
 

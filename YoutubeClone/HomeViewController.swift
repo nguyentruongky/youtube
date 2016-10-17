@@ -101,9 +101,12 @@ class HomeViewController: UICollectionViewController, UICollectionViewDelegateFl
     func handleSearch() {
         
     }
+
+    let settingLauncher = SettingLauncher()
     
     func handleMenu() {
         
+        settingLauncher.showSetting()
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
