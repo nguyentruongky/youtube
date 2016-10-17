@@ -149,6 +149,31 @@ A small difference in my code: I handle selected action right with delay action.
 
 [Ep10](https://www.youtube.com/watch?v=naMqoh1_5To&list=PL0dzCUj1L5JGKdVUtA5xds1zcyzsz7HLj&index=10): Create setting enumeration to easier handle setting selection. 
 
+[Ep11](https://www.youtube.com/watch?v=XgRbj4YeG9I&list=PL0dzCUj1L5JGKdVUtA5xds1zcyzsz7HLj&index=11): Animate to hide the navigation bar. An awesome trick here: create constraint for the menu bar to the top layout, add an red view to hide the space under the bar. 
+
+	// hide navigation bar and add red view 
+	navigationController?.hidesBarsOnSwipe = true
+	let redView = UIView()
+	redView.backgroundColor = UIColor.rgb(red: 230, green: 32, blue: 31)
+	view.addSubview(redView)
+	view.addConstraints(withFormat: "H:|[v0]|", views: redView)
+	view.addConstraints(withFormat: "V:[v0(50)]", views: redView)
+	
+-
+
+	// add constraint for the menu bar to the top layout 
+	menuBar.topAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor).isActive = true
+
+A new way to add constraint
+
+	// add constraint for indicator view (horizontalBarView)
+	barViewLeftAnchor = horizontalBarView.leftAnchor.constraint(equalTo: leftAnchor)
+	barViewLeftAnchor!.isActive = true
+	horizontalBarView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
+	horizontalBarView.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 1/4).isActive = true
+	horizontalBarView.heightAnchor.constraint(equalToConstant: 3).isActive = true
+	
+Animate the indicator view: change the constraint constant and update layout
 
 - Update later...
 

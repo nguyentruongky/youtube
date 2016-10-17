@@ -21,7 +21,7 @@ class MenuBar: UIView, UICollectionViewDataSource, UICollectionViewDelegate, UIC
     
     let cellId = "cellId"
     let imageName = ["home", "trending", "subcription", "personal"]
-    
+    var barViewLeftAnchor : NSLayoutConstraint?
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -30,6 +30,21 @@ class MenuBar: UIView, UICollectionViewDataSource, UICollectionViewDelegate, UIC
         addSubview(collectionView)
         addConstraints(withFormat: "H:|[v0]|", views: collectionView)
         addConstraints(withFormat: "V:|[v0]|", views: collectionView)
+        
+        setupHorizontalBar()
+    }
+    
+    func setupHorizontalBar() {
+        let horizontalBarView = UIView()
+        horizontalBarView.backgroundColor = UIColor(white: 0.9, alpha: 1)
+        horizontalBarView.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(horizontalBarView)
+        
+        barViewLeftAnchor = horizontalBarView.leftAnchor.constraint(equalTo: leftAnchor)
+        barViewLeftAnchor!.isActive = true
+        horizontalBarView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
+        horizontalBarView.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 1/4).isActive = true
+        horizontalBarView.heightAnchor.constraint(equalToConstant: 3).isActive = true
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -57,6 +72,17 @@ class MenuBar: UIView, UICollectionViewDataSource, UICollectionViewDelegate, UIC
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: frame.width / 4, height: frame.height)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let x = CGFloat(indexPath.item) * frame.width / 4
+        barViewLeftAnchor?.constant = x
+        
+        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: { 
+            
+            self.layoutIfNeeded()
+            
+            }, completion: nil)
     }
 }
 

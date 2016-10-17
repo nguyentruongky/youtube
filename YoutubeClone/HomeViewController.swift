@@ -16,12 +16,11 @@ class HomeViewController: UICollectionViewController, UICollectionViewDelegateFl
 
     var videos : [Video]?
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         navigationController?.navigationBar.isTranslucent = true
-        let titleLabel = UILabel(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height))
+        let titleLabel = UILabel(frame: CGRect(x: 4, y: 0, width: view.frame.width, height: view.frame.height))
         titleLabel.text = "Home"
         titleLabel.textColor = UIColor.white
         titleLabel.font = UIFont.systemFont(ofSize: 20)
@@ -43,39 +42,10 @@ class HomeViewController: UICollectionViewController, UICollectionViewDelegateFl
     }
     
     func fetchVideos() {
-        URLSession.shared.dataTask(with: URL(string: "https://s3-us-west-2.amazonaws.com/youtubeassets/home.json")!) { (data, response, error) in
-            
-            if error != nil {
-                print(error)
-                return
-            }
-            
-            do {
-                
-                let json = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers)
-                
-                self.videos = [Video]()
-                for dict in json as! [[String: AnyObject]] {
-                    let video = Video()
-                    video.title = dict["title"] as? String
-                    video.thumbnailImageName = dict["thumbnail_image_name"] as? String
-                    video.numberOfViews = dict["number_of_views"] as? NSNumber
-                    video.channel = Channel()
-                    video.channel?.name = dict["channel"]?["name"] as? String
-                    video.channel?.profileImageName = dict["channel"]?["profile_image_name"] as? String
-                    
-                    self.videos?.append(video)
-                }
-                
-                DispatchQueue.main.sync {
-                    self.collectionView?.reloadData()
-                }
-                
-            } catch let jsonerror {
-                print(jsonerror)
-            }
-            
-        }.resume()
+        ApiService.shared.fetchVideos { (videos) in
+            self.videos = videos
+            self.collectionView?.reloadData()
+        }
     }
     
     let menuBar : MenuBar = {
@@ -89,9 +59,18 @@ class HomeViewController: UICollectionViewController, UICollectionViewDelegateFl
     }
     
     private func setupMenuBar() {
+        
+        navigationController?.hidesBarsOnSwipe = true
+        let redView = UIView()
+        redView.backgroundColor = UIColor.rgb(red: 230, green: 32, blue: 31)
+        view.addSubview(redView)
+        view.addConstraints(withFormat: "H:|[v0]|", views: redView)
+        view.addConstraints(withFormat: "V:[v0(50)]", views: redView)
+
         view.addSubview(menuBar)
         view.addConstraints(withFormat: "H:|[v0]|", views: menuBar)
-        view.addConstraints(withFormat: "V:|[v0(50)]", views: menuBar)
+        view.addConstraints(withFormat: "V:[v0(50)]", views: menuBar)
+        menuBar.topAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor).isActive = true
     }
     
     func setupNavigationIcons() {
