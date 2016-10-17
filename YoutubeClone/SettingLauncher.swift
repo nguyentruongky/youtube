@@ -21,6 +21,7 @@ class Setting: NSObject {
 class SettingLauncher : NSObject {
     
     var blackView = UIView()
+    var delegate : SettingDelegate?
     
     let collectionView : UICollectionView = {
         let cv = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
@@ -30,6 +31,7 @@ class SettingLauncher : NSObject {
     
     let cellId = "cellId"
     let cellHeight : CGFloat = 50
+    let dismissAnimationDuration : Double = 0.5
     
     let settings = [
         Setting(name: "Settings", imageName: "setting"),
@@ -47,7 +49,7 @@ class SettingLauncher : NSObject {
             blackView.backgroundColor = UIColor(white: 0, alpha: 0.5)
             blackView.frame = window.frame
             blackView.alpha = 0
-            blackView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(blackViewTapped)))
+            blackView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleDismiss)))
             
             window.addSubview(blackView)
             window.addSubview(collectionView)
@@ -66,8 +68,8 @@ class SettingLauncher : NSObject {
         }
     }
     
-    func blackViewTapped() {
-        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
+    func handleDismiss() {
+        UIView.animate(withDuration: dismissAnimationDuration, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
             
             self.blackView.alpha = 0
             
@@ -106,6 +108,17 @@ extension SettingLauncher: UICollectionViewDelegate, UICollectionViewDataSource,
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 0
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let setting = settings[indexPath.row]
+        handleDismiss()
+        perform(#selector(handleSettingSelected), with: setting, afterDelay: dismissAnimationDuration)
+    }
+    
+    func handleSettingSelected(setting: Setting) {
+        guard setting.name != "Cancel" else { return }
+        delegate?.didSelectSettingMenu(setting: setting)
     }
 }
 

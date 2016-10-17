@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol SettingDelegate {
+    func didSelectSettingMenu(setting: Setting)
+}
+
 class HomeViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
 
     var videos : [Video]?
@@ -102,7 +106,11 @@ class HomeViewController: UICollectionViewController, UICollectionViewDelegateFl
         
     }
 
-    let settingLauncher = SettingLauncher()
+    lazy var settingLauncher : SettingLauncher = {
+        let launcher = SettingLauncher()
+        launcher.delegate = self
+        return launcher
+    }()
     
     func handleMenu() {
         
@@ -127,5 +135,17 @@ class HomeViewController: UICollectionViewController, UICollectionViewDelegateFl
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 0
     }
-    
+}
+
+extension HomeViewController : SettingDelegate {
+    func didSelectSettingMenu(setting: Setting) {
+        let newViewController = UIViewController()
+        newViewController.title = setting.name
+        newViewController.view.backgroundColor = UIColor.white
+        navigationController?.navigationBar.tintColor = UIColor.white
+        navigationController?.navigationBar.titleTextAttributes = [
+            NSForegroundColorAttributeName: UIColor.white
+        ]
+        navigationController?.pushViewController(newViewController, animated: true)
+    }
 }

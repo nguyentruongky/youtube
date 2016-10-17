@@ -2,6 +2,10 @@
   "images" : [
     {
       "idiom" : "universal",
+      "scale" : "1x"
+    },
+    {
+      "idiom" : "universal",
       "filename" : "round-account-button-with-user-inside (1)@2x.png",
       "scale" : "2x"
     },
