@@ -14,6 +14,7 @@ protocol SettingDelegate {
 
 class HomeViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
 
+    let cellId = "cellId"
     var videos : [Video]?
     
     override func viewDidLoad() {
@@ -25,20 +26,32 @@ class HomeViewController: UICollectionViewController, UICollectionViewDelegateFl
         titleLabel.textColor = UIColor.white
         titleLabel.font = UIFont.systemFont(ofSize: 20)
         navigationItem.titleView = titleLabel
-        
-        collectionView?.backgroundColor = UIColor.white
-        
-        collectionView?.register(VideoCell.self, forCellWithReuseIdentifier: "cellId")
-
-        collectionView?.contentInset = UIEdgeInsets(top: 50, left: 0, bottom: 0, right: 0)
-        collectionView?.scrollIndicatorInsets = UIEdgeInsets(top: 50, left: 0, bottom: 0, right: 0)
-        edgesForExtendedLayout = .bottom
-        
+    
+    
+        setupCollectionView()
         setupMenuBar()
         
         setupNavigationIcons()
         
         fetchVideos()
+    }
+    
+    func setupCollectionView() {
+        
+        if let layout = collectionView?.collectionViewLayout as? UICollectionViewFlowLayout {
+            layout.scrollDirection = .horizontal
+            layout.minimumLineSpacing = 0
+        }
+        
+        collectionView?.backgroundColor = UIColor.white
+//        collectionView?.register(VideoCell.self, forCellWithReuseIdentifier: "cellId")
+        collectionView?.register(UICollectionViewCell.self, forCellWithReuseIdentifier: cellId)
+        
+        collectionView?.contentInset = UIEdgeInsets(top: 50, left: 0, bottom: 0, right: 0)
+        collectionView?.scrollIndicatorInsets = UIEdgeInsets(top: 50, left: 0, bottom: 0, right: 0)
+        edgesForExtendedLayout = .bottom
+        
+        collectionView?.isPagingEnabled = true
     }
     
     func fetchVideos() {
@@ -48,8 +61,9 @@ class HomeViewController: UICollectionViewController, UICollectionViewDelegateFl
         }
     }
     
-    let menuBar : MenuBar = {
+    lazy var menuBar : MenuBar = {
         let mb = MenuBar()
+        mb.menuDelegate = self
         return mb
     }()
     
@@ -96,23 +110,34 @@ class HomeViewController: UICollectionViewController, UICollectionViewDelegateFl
         settingLauncher.showSetting()
     }
     
+    func scrollToMenuAtIndexPath(indexPath: IndexPath) {
+        collectionView?.scrollToItem(at: indexPath, at: [], animated: true)
+    }
+    
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return videos?.count ?? 0
+        return 4
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cellId", for: indexPath) as! VideoCell
-        cell.video = videos?[indexPath.row]
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath)
+        
+        let colors = [UIColor.lightGray, UIColor.green, UIColor.red, UIColor.blue]
+        cell.backgroundColor = colors[indexPath.row]
         return cell
     }
-
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let height = (view.frame.width - 32) * 9 / 16
-        return CGSize(width: view.frame.width, height: height + 84)
+    
+    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        menuBar.barViewLeftAnchor?.constant = scrollView.contentOffset.x / 4
     }
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 0
+    override func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+        let index = targetContentOffset.pointee.x / view.frame.width
+        
+        menuBar.collectionView.selectItem(at: IndexPath(item: Int(index), section: 0), animated: true, scrollPosition: [])
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: view.frame.width, height: view.frame.height)
     }
 }
 
@@ -126,5 +151,11 @@ extension HomeViewController : SettingDelegate {
             NSForegroundColorAttributeName: UIColor.white
         ]
         navigationController?.pushViewController(newViewController, animated: true)
+    }
+}
+
+extension HomeViewController : MenuSelectDelegate {
+    func didSelectMenuAtIndexPath(indexPath: IndexPath) {
+        scrollToMenuAtIndexPath(indexPath: indexPath)
     }
 }

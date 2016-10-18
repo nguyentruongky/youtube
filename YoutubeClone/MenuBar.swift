@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol MenuSelectDelegate {
+    func didSelectMenuAtIndexPath(indexPath: IndexPath)
+}
+
 class MenuBar: UIView, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     
     lazy var collectionView : UICollectionView = {
@@ -19,6 +23,7 @@ class MenuBar: UIView, UICollectionViewDataSource, UICollectionViewDelegate, UIC
         return cv
     }()
     
+    var menuDelegate: MenuSelectDelegate?
     let cellId = "cellId"
     let imageName = ["home", "trending", "subcription", "personal"]
     var barViewLeftAnchor : NSLayoutConstraint?
@@ -75,14 +80,7 @@ class MenuBar: UIView, UICollectionViewDataSource, UICollectionViewDelegate, UIC
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let x = CGFloat(indexPath.item) * frame.width / 4
-        barViewLeftAnchor?.constant = x
-        
-        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: { 
-            
-            self.layoutIfNeeded()
-            
-            }, completion: nil)
+        menuDelegate?.didSelectMenuAtIndexPath(indexPath: indexPath)
     }
 }
 

@@ -175,5 +175,23 @@ A new way to add constraint
 	
 Animate the indicator view: change the constraint constant and update layout
 
+[Ep12](https://www.youtube.com/watch?v=ZxIAT7f-yh8&list=PL0dzCUj1L5JGKdVUtA5xds1zcyzsz7HLj&index=12): Cool animation and binding menu item and content item. Change the video collection view Home view controller to a collection view with 4 item, horizontal flow layout and paging. One again, I use a delegation instead of passing a home view controller instance to menu bar. 
+
+Bind the menu item ưith the content offset. The menu item width is equal to the content width / number of menu items
+
+	menuBar.barViewLeftAnchor?.constant = scrollView.contentOffset.x / 4
+
+Update the menu icon: 
+
+	override func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+        let index = targetContentOffset.pointee.x / view.frame.width
+        
+        menuBar.collectionView.selectItem(at: IndexPath(item: Int(index), section: 0), animated: true, scrollPosition: [])
+    }
+
+When the menu item selected, pass the menu index to the home view controller via delegation. 
+
+	menuDelegate?.didSelectMenuAtIndexPath(indexPath: indexPath)
+
 - Update later...
 
