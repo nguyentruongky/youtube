@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SettingCell: BaseCell {
+final class SettingCell: BaseCell {
 
     let nameLabel : UILabel = {
         let label = UILabel()

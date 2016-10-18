@@ -23,7 +23,7 @@ class BaseCell: UICollectionViewCell {
     }
 }
 
-class VideoCell: BaseCell {
+final class VideoCell: BaseCell {
     
     var video : Video? {
         didSet {

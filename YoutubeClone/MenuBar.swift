@@ -12,7 +12,7 @@ protocol MenuSelectDelegate {
     func didSelectMenuAtIndexPath(indexPath: IndexPath)
 }
 
-class MenuBar: UIView, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+final class MenuBar: UIView, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     
     lazy var collectionView : UICollectionView = {
         

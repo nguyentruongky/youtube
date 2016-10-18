@@ -195,5 +195,13 @@ When the menu item selected, pass the menu index to the home view controller via
 
 [Ep13](https://youtu.be/elvK3TYnzIw): Add a collection view inside a collection view to show the list of videos in every cell. Update the title when the content changed. 
 
+[Ep14](https://youtu.be/77nQN0JzBH4): Add new services to get different videos content. Create 2 new cells inherit from FeedCell to get and fill data. I did a difference with Brian. In HomeViewController, cellForItemAtIndexPath, I use an array of ids, instead of if condition.
+
+	// The last cellIs is must, because of collection view's prefetching mechanism. 
+	// This id is use for the account cell. 
+	let cellIds = [cellId, trendingCellId, subscriptionCellId, cellId]
+	let identifier = cellIds[indexPath.item]
+	let cell = collectionView.dequeueReusableCell(withReuseIdentifier: identifier, for: indexPath)
+
 - Update later...
 

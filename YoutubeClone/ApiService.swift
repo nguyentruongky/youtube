@@ -12,8 +12,23 @@ class ApiService: NSObject {
 
     static let shared = ApiService()
     
+    let baseUrl = "https://s3-us-west-2.amazonaws.com/youtubeassets"
+    
     func fetchVideos(completion: @escaping (_ videos: [Video]) -> Void) {
-        URLSession.shared.dataTask(with: URL(string: "https://s3-us-west-2.amazonaws.com/youtubeassets/home.json")!) { (data, response, error) in
+        fetchData(from: "\(baseUrl)/home.json", completion: completion)
+    }
+    
+    func fetchTrendingVideos(completion: @escaping (_ videos: [Video]) -> Void) {
+        fetchData(from: "\(baseUrl)/trending.json", completion: completion)
+    }
+    
+    func fetchSubscriptionsVideos(completion: @escaping (_ videos: [Video]) -> Void) {
+        
+        fetchData(from: "\(baseUrl)/subscriptions.json", completion: completion)
+    }
+    
+    private func fetchData(from url: String, completion: @escaping (_ videos: [Video]) -> Void) {
+        URLSession.shared.dataTask(with: URL(string: url)!) { (data, response, error) in
             
             if error != nil {
                 print(error)
@@ -46,5 +61,6 @@ class ApiService: NSObject {
             }
             
             }.resume()
-    }
+        
+    }    
 }
