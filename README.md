@@ -175,7 +175,7 @@ A new way to add constraint
 	
 Animate the indicator view: change the constraint constant and update layout
 
-[Ep12](https://www.youtube.com/watch?v=ZxIAT7f-yh8&list=PL0dzCUj1L5JGKdVUtA5xds1zcyzsz7HLj&index=12): Cool animation and binding menu item and content item. Change the video collection view Home view controller to a collection view with 4 item, horizontal flow layout and paging. One again, I use a delegation instead of passing a home view controller instance to menu bar. 
+[Ep12](https://youtu.be/ZxIAT7f-yh8): Cool animation and binding menu item and content item. Change the video collection view Home view controller to a collection view with 4 item, horizontal flow layout and paging. One again, I use a delegation instead of passing a home view controller instance to menu bar. 
 
 Bind the menu item ưith the content offset. The menu item width is equal to the content width / number of menu items
 
@@ -192,6 +192,8 @@ Update the menu icon:
 When the menu item selected, pass the menu index to the home view controller via delegation. 
 
 	menuDelegate?.didSelectMenuAtIndexPath(indexPath: indexPath)
+
+[Ep13](https://youtu.be/elvK3TYnzIw): Add a collection view inside a collection view to show the list of videos in every cell. Update the title when the content changed. 
 
 - Update later...
 

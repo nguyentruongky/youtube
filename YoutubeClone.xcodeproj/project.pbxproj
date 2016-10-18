@@ -11,6 +11,7 @@
 		2617C25F1DB43970005E4A84 /* SettingLauncher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2617C25E1DB43970005E4A84 /* SettingLauncher.swift */; };
 		2617C2611DB49839005E4A84 /* SettingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2617C2601DB49839005E4A84 /* SettingCell.swift */; };
 		2617C2631DB58D5F005E4A84 /* ApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2617C2621DB58D5F005E4A84 /* ApiService.swift */; };
+		2617C26F1DB6BA76005E4A84 /* FeedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2617C26E1DB6BA76005E4A84 /* FeedCell.swift */; };
 		265A90771DB038F000CD4CDF /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 265A90761DB038F000CD4CDF /* Extension.swift */; };
 		265A907A1DB0394C00CD4CDF /* VideoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 265A90791DB0394C00CD4CDF /* VideoCell.swift */; };
 		265A907E1DB03EC700CD4CDF /* MenuBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 265A907D1DB03EC700CD4CDF /* MenuBar.swift */; };
@@ -26,6 +27,7 @@
 		2617C25E1DB43970005E4A84 /* SettingLauncher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingLauncher.swift; sourceTree = "<group>"; };
 		2617C2601DB49839005E4A84 /* SettingCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingCell.swift; sourceTree = "<group>"; };
 		2617C2621DB58D5F005E4A84 /* ApiService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiService.swift; sourceTree = "<group>"; };
+		2617C26E1DB6BA76005E4A84 /* FeedCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedCell.swift; sourceTree = "<group>"; };
 		265A90761DB038F000CD4CDF /* Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
 		265A90791DB0394C00CD4CDF /* VideoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoCell.swift; sourceTree = "<group>"; };
 		265A907D1DB03EC700CD4CDF /* MenuBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuBar.swift; sourceTree = "<group>"; };
@@ -79,6 +81,7 @@
 			children = (
 				265A90791DB0394C00CD4CDF /* VideoCell.swift */,
 				265A907D1DB03EC700CD4CDF /* MenuBar.swift */,
+				2617C26E1DB6BA76005E4A84 /* FeedCell.swift */,
 				2617C2601DB49839005E4A84 /* SettingCell.swift */,
 			);
 			name = VIew;
@@ -199,6 +202,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2617C25F1DB43970005E4A84 /* SettingLauncher.swift in Sources */,
+				2617C26F1DB6BA76005E4A84 /* FeedCell.swift in Sources */,
 				265A90771DB038F000CD4CDF /* Extension.swift in Sources */,
 				2617C2611DB49839005E4A84 /* SettingCell.swift in Sources */,
 				2617C25D1DB1CC9F005E4A84 /* Video.swift in Sources */,
