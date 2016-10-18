@@ -36,26 +36,16 @@ class ApiService: NSObject {
             }
             
             do {
-                
-                let json = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers)
-                
-                var videos = [Video]()
-                for dict in json as! [[String: AnyObject]] {
-                    let video = Video()
-                    video.title = dict["title"] as? String
-                    video.thumbnailImageName = dict["thumbnail_image_name"] as? String
-                    video.numberOfViews = dict["number_of_views"] as? NSNumber
-                    video.channel = Channel()
-                    video.channel?.name = dict["channel"]?["name"] as? String
-                    video.channel?.profileImageName = dict["channel"]?["profile_image_name"] as? String
-                    
-                    videos.append(video)
-                }
+
+                guard let data = data else { return }
+                guard let json = try JSONSerialization.jsonObject(with: data, options: .mutableContainers) as? [[String: AnyObject]] else { return }
+
+                let videos = json.map({ return Video(dictionary: $0) })
                 
                 DispatchQueue.main.sync {
                     completion(videos)
                 }
-                
+
             } catch let jsonerror {
                 print(jsonerror)
             }

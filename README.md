@@ -203,5 +203,43 @@ When the menu item selected, pass the menu index to the home view controller via
 	let identifier = cellIds[indexPath.item]
 	let cell = collectionView.dequeueReusableCell(withReuseIdentifier: identifier, for: indexPath)
 
+[Ep15](https://www.youtube.com/watch?v=11aHute59QQ&list=PL0dzCUj1L5JGKdVUtA5xds1zcyzsz7HLj&index=15): Awesome trick here. Improve code in api service parse data. Move setting data from api service to model. Let model handle what belong to model. 
+
+Prevent application crash with safe unwrap optional. Instead of using `if let` as the video, I use `guard`
+
+	guard let data = data else { return }
+	guard let json = try JSONSerialization.jsonObject(with: data, options: .mutableContainers) as? [[String: AnyObject]] else { return }
+	
+New way to set data to properties. Set a dictionary instead of every property. A notice here: the raw data key name has to match with the property name, otherwise, app will crash. 
+
+	channel!.setValuesForKeys(value as! [String: AnyObject])
+	
+instead of 
+
+	channel?.name = values["name"] as! String
+    channel?.profile_image_name = values["profile_image_name"] as! String
+
+Brian also showed me how to prevent crash when the raw data has more properties than my model. He created a SafeJsonObjet 
+
+	class SafeJsonObject : NSObject {
+	    override func setValue(_ value: Any?, forKey key: String) {
+	        
+	        let selectorName = capitalFirstCharacter(of: key)
+	        let selector = NSSelectorFromString("set\(selectorName):")
+	        let response = self.responds(to: selector)
+	        
+	        guard response else { return }
+	        
+	        super.setValue(value, forKey: key)
+	    }
+	 	
+	 	// this is an improvement for Brian's way.    
+	    func capitalFirstCharacter(of string: String) -> String {
+	        let first = String(string.characters.prefix(1)).capitalized
+	        let other = String(string.characters.dropFirst())
+	        return "\(first)\(other)"
+	    }
+	}
+
 - Update later...
 

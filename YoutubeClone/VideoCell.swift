@@ -31,7 +31,7 @@ final class VideoCell: BaseCell {
             setupThumbnailImage()
             setupUserProfileImage()
             
-            if let channelName = video?.channel?.name, let numberOfViews = video?.numberOfViews, let uploadedDate = video?.uploadedDate {
+            if let channelName = video?.channel?.name, let numberOfViews = video?.number_of_views, let uploadedDate = video?.uploaded_date {
                 let subtitleText = "\(channelName) - \(numberOfViews) views - \(uploadedDate)"
                 subtitleTextView.text = subtitleText
             }
@@ -55,14 +55,14 @@ final class VideoCell: BaseCell {
     }
     
     func setupThumbnailImage() {
-        if let thumbnailUrl = video?.thumbnailImageName {
+        if let thumbnailUrl = video?.thumbnail_image_name {
 
             self.thumbnailImageView.loadImage(with: thumbnailUrl)
         }
     }
     
     func setupUserProfileImage() {
-        if let profileUrl = video?.channel?.profileImageName {
+        if let profileUrl = video?.channel?.profile_image_name {
 
             self.userProfileImageView.loadImage(with: profileUrl)
         }
