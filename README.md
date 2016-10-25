@@ -241,5 +241,24 @@ Brian also showed me how to prevent crash when the raw data has more properties 
 	    }
 	}
 
+[Ep16](https://www.youtube.com/watch?v=NpG8iaM0Sfs&list=PL0dzCUj1L5JGKdVUtA5xds1zcyzsz7HLj&index=16): Show me how to play a video file with AVPlayer. The AVPlayer can play a file only, so that the link without direct to a file, nothing happen, example, youtube, film streaming link... 
+
+	let urlString = "https://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4"
+	if let url = URL(string: urlString) {
+	    let player = AVPlayer(url: url)
+	    
+	    let playerLayer = AVPlayerLayer(player: player)
+	    layer.addSublayer(playerLayer)
+	    playerLayer.frame = frame
+	    
+	    player.play()
+	}
+
+Don't forget import AVFoundation module 
+
+	import AVFoundation
+	
+	
+
 - Update later...
 
