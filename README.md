@@ -278,6 +278,30 @@ Detect when the video finished loading
         }
     }
 	
+[Ep18](https://www.youtube.com/watch?v=HX1aYzaHex8&list=PL0dzCUj1L5JGKdVUtA5xds1zcyzsz7HLj&index=18): Add a duration slider and duration label for video. Drag the slider and seek to time in video player. 
+
+Custom the slider color. 
+
+	slider.minimumTrackTintColor = .red 						// left side of the thumb
+    slider.maximumTrackTintColor = .white						// right side of the thumb
+
+Display video duration
+
+	if let duration = player?.currentItem?.duration {        
+        let seconds = CMTimeGetSeconds(duration)
+        let secondText = String(format: "%02d", Int(seconds) % 60)
+        let minuteText = String(format: "%02d", Int(seconds) / 60)
+        videoLengthLabel.text = "\(minuteText):\(secondText)"
+    }
+
+Seek to position in video by dragging the slider 
+
+	let totalSeconds = CMTimeGetSeconds(duration)
+    let value = Float64(videoSlider.value) * totalSeconds
+    let seekTime = CMTime(value: Int64(value), timescale: 1)
+    player?.seek(to: seekTime, completionHandler: { (completedSeek) in
+        // something goes here
+    })
 
 - Update later...
 
