@@ -258,6 +258,25 @@ Don't forget import AVFoundation module
 
 	import AVFoundation
 	
+[Ep17](https://www.youtube.com/watch?v=u1DoR5-76Xc&list=PL0dzCUj1L5JGKdVUtA5xds1zcyzsz7HLj&index=17): Add loading indicator when the video is loading. Add play and pause button. 
+
+Add constraint with the new way 
+
+	activityIndicator.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
+
+or 
+
+	pausePlayButton.widthAnchor.constraint(equalToConstant: 50).isActive = true
+	
+Detect when the video finished loading
+
+	player?.addObserver(self, forKeyPath: "currentItem.loadedTimeRanges", options: .new, context: nil)
+	
+	override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+        if keyPath == "currentItem.loadedTimeRanges" {
+			// video is ready. Do what you want :)
+        }
+    }
 	
 
 - Update later...
