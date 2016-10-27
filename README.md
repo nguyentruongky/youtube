@@ -303,5 +303,33 @@ Seek to position in video by dragging the slider
         // something goes here
     })
 
+[Ep19](https://www.youtube.com/watch?v=HwI9YF6i3DM&list=PL0dzCUj1L5JGKdVUtA5xds1zcyzsz7HLj&index=19): Track the player progress and add gradient layer at the bottom of the player view. 
+
+Get the player progress and update the current time label and change the slider thumb. 
+
+	player?.addPeriodicTimeObserver(forInterval: interval, queue: DispatchQueue.main, using: { (progressTime) in
+            
+        let seconds = CMTimeGetSeconds(progressTime)
+        let secondString = String(format: "%02d", Int(seconds) % 60)
+        let minuteString = String(format: "%02d", Int(seconds) / 60)
+        self.currentTimeLabel.text = "\(minuteString):\(secondString)"
+        
+        // update the slider thumb 
+        if let duration = self.player?.currentItem?.duration {
+            let durationSeconds = CMTimeGetSeconds(duration)
+            self.videoSlider.value = Float(seconds / durationSeconds)
+        }
+    })
+    
+Add gradient layer. Rememeber: the layer uses cgColor instead of uiColor. And the location is 0 from the top. 
+
+	private func setupGradientLayer() {
+        let gradientLayer = CAGradientLayer()
+        gradientLayer.frame = bounds
+        gradientLayer.colors = [UIColor.clear.cgColor, UIColor.red.cgColor]
+        gradientLayer.locations = [0.7, 1.2] 
+        controlsContainerView.layer.addSublayer(gradientLayer)
+    }
+	    
 - Update later...
 
