@@ -331,5 +331,7 @@ Add gradient layer. Rememeber: the layer uses cgColor instead of uiColor. And th
         controlsContainerView.layer.addSublayer(gradientLayer)
     }
 	    
-- Update later...
+The project is drop here with basic layout and features. I learnt a lot from this project. I will come back and finish it later. 
+
+Thanks a lot, Brain Voong. 
 
